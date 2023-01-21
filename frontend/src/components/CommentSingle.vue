@@ -1,16 +1,41 @@
 <template>
-  <div class="item">
-    <i>
-      <slot name="icon"></slot>
-    </i>
-    <div class="details">
-      <h3>
-        <slot name="heading"></slot>
-      </h3>
-      <slot></slot>
+  <div class="border-2 p-4">
+    <div
+      class="flex flex-row justify-start content-center items-center space-x-2 mb-2"
+    >
+      <img
+        :src="`http://127.0.0.1:8000/media/${comment.author.avatar}`"
+        alt=""
+        class="w-10"
+      />
+      <p class="text-lg font-sans font-bold">
+        {{ comment.author.username }}
+      </p>
     </div>
+
+    <p>
+      {{ comment.content }}
+    </p>
   </div>
 </template>
+
+<script lang="ts">
+export default {
+  props: {
+    authorID: {
+      type: String,
+      required: false,
+    },
+    comment: {
+      type: Object,
+      required: true,
+    },
+  },
+  data() {
+    return {}
+  }
+}
+</script>
 
 <style scoped>
 .item {

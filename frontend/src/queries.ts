@@ -71,11 +71,46 @@ query {
 export const postBySlug = gql`
 query ($slug: String!) {
   postBySlug(slug: $slug) {
+    id
     title
     slug
     content
     isPublished
     isFeatured
+    featuredImage
+    tags {
+      id
+      name
+      description
+      slug
+    }
     createdDate
+    author {
+      id
+      username
+    }
+    category {
+      name
+      slug
+    }
+    likes {
+      id
+    }
+    numberOfLikes
+    commentSet {
+      id
+      content
+      isApproved
+      numberOfLikes
+      likes {
+        id
+      }
+      author {
+        id
+        username
+        avatar
+      }
+    }
   }
-}`
+}
+`

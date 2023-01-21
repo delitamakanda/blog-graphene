@@ -29,3 +29,27 @@ export const userLogin = gql`
         }
     }
 `
+
+export const createComment = gql`
+    mutation ($content: String!, $authorID: ID!, $postID: ID!) {
+        createComment(content: $content, authorId: $authorID, postId: $postID) {
+            comment {
+                content
+            }
+        }
+    }
+`
+
+export const updatePostLike = gql`
+    mutation ($postId: ID!, $authorId: ID!) {
+        updatePostLikes(postId: $postId, authorId: $authorId) {
+            post {
+                id
+                title
+                likes {
+                    id
+                }
+            }
+        }
+    }
+`
