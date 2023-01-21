@@ -18,12 +18,26 @@
 <script lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import { siteInfo } from '@/queries'
-import { apolloClient } from './apollo-config'
+import { apolloClient } from '@/apollo-config'
+import { useUserStore } from '@/stores/user'
 
 export default {
+  setup() {
+    const userStore = useUserStore()
+
+    return {
+      userStore,
+    }
+  },
   data() {
     return {
       site: null,
+      user: {
+        isLogddedIn: false,
+        token: (this as any).userStore.getToken || null,
+        user: (this as any).userStore.getUser || {},
+      },
+      isLoaded: false,
     }
   },
   async created() {
@@ -31,6 +45,16 @@ export default {
       query: siteInfo,
     })
     this.site = data?.site
+
+    if (this.user.token) {
+      (this as any).user.isLoggedIn = true
+    }
+  },
+  methods: {
+    async logout() {
+      this.userStore.removeToken()
+      this.userStore.clearUser()
+    }
   }
 }
 </script>

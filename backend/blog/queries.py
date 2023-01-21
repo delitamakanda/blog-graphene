@@ -27,7 +27,7 @@ class Query(graphene.ObjectType):
         return Post.objects.filter(category__slug__iexact=category)
 
     def resolve_posts_by_tag(root, info, tag):
-        return Post.objects.filter(tag__slug__iexact=tag)
+        return Post.objects.filter(tags__slug__iexact=tag)
 
     def resolve_post_by_slug(root, info, slug):
         return Post.objects.get(slug__iexact=slug)

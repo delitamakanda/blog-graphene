@@ -1,4 +1,5 @@
 import graphene
+import graphql_jwt
 from blog.models import User
 from blog.types import UserType
 
@@ -18,5 +19,16 @@ class CreateUser(graphene.Mutation):
         return CreateUser(user=user)
 
 
+class ObtainJSONWebToken(graphql_jwt.JSONWebTokenMutation):
+    user = graphene.Field(UserType)
+
+    @classmethod
+    def resolve(cls, root, info, **kwargs):
+        return cls(user=info.context.user)
+
+
 class Mutation(graphene.ObjectType):
     create_user = CreateUser.Field()
+    token_auth = ObtainJSONWebToken.Field()
+    verify_token = graphql_jwt.Verify.Field()
+    refresh_token = graphql_jwt.Refresh.Field()

@@ -13,6 +13,7 @@
     "@apollo/client": "^3.7.4",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
+    "pinia": "^2.0.29",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },

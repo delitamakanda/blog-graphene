@@ -6,9 +6,22 @@ import AllTagsView from '../views/main/AllTagsView.vue'
 import TagView from '../views/main/TagView.vue'
 import AllCategoriesView from '../views/main/AllCategoriesView.vue'
 
+import SignupView from '../views/user/SignupView.vue'
+import LoginView from '../views/user/LoginView.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: SignupView
+    },
     {
       path: '/',
       name: 'home',
@@ -20,12 +33,12 @@ const router = createRouter({
       component: CategoryView
     },
     {
-      path: '/tag',
+      path: '/tag/:tag',
       name: 'tag',
       component: TagView
     },
     {
-      path: '/post',
+      path: '/post/:slug',
       name: 'post',
       component: PostView
     },

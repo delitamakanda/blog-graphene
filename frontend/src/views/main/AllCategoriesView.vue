@@ -1,10 +1,19 @@
 <script lang="ts">
+import { apolloClient } from '@/apollo-config';
+import { allCategories } from '@/queries';
+
 
 export default {
   data() {
     return {
       catogories: []
     }
+  },
+  async created() {
+    const { data } = await apolloClient.query({
+      query: allCategories
+    })
+    this.catogories = data?.allCategories
   }
 }
 </script>
@@ -18,14 +27,10 @@ export default {
       <router-link
         v-for="category in catogories"
         :key="category.name"
-        class=". . ."
+        class=""
         :to="`/category/${category.slug}`"
-        >{{ category.name }}</router-link
+        >{{ category.name }} {{  category.slug }}</router-link
       >
     </div>
   </div>
 </template>
-
-/*
-https://www.ericsdevblog.com/posts/create-a-modern-application-with-django-and-vue-2/
-*/

@@ -139,6 +139,7 @@ AUTH_USER_MODEL = 'blog.User'
 GRAPHENE = {
     'SCHEMA': 'blog.schema.schema',
     'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware'
     ],
 }
 
@@ -155,3 +156,10 @@ CORS_ORIGIN_WHITELIST = (
     'http://127.0.0.1:8080',
     'http://localhost:5173',
 )
+
+# configuration auth backend
+
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
