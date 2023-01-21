@@ -1,16 +1,9 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
   <header>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      
-      <HelloWorld msg="You did it!" />
-      <h1 class="text-3xl font-bold underline">Hello world!</h1>
+      <h1 class="text-3xl font-bold underline" v-if="site">{{ site?.name }}</h1>
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
@@ -21,6 +14,26 @@ import HelloWorld from './components/HelloWorld.vue'
 
   <RouterView />
 </template>
+
+<script lang="ts">
+import { RouterLink, RouterView } from 'vue-router'
+import { siteInfo } from '@/queries'
+import { apolloClient } from './apollo-config'
+
+export default {
+  data() {
+    return {
+      site: null,
+    }
+  },
+  async created() {
+    const { data } = await apolloClient.query({
+      query: siteInfo,
+    })
+    this.site = data?.site
+  }
+}
+</script>
 
 <style scoped>
 header {
